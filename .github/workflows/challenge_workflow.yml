@@ -1,1 +1,36 @@
 name: Print Date on Different OS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job_1_ubuntu:
+    name: Print Date on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Date
+        run: date
+
+  job_2_windows:
+    name: Print Date on Windows
+    runs-on: windows-latest
+    steps:
+      - name: Print Date
+        run: echo %DATE%
+
+  job_3_macos:
+    name: Print Date on macOS
+    runs-on: macos-latest
+    steps:
+      - name: Print Date
+        run: date
+
+  job_4_custom:
+    name: Custom Job depending on Job 1, 2, 3
+    runs-on: ubuntu-latest
+    needs: [job_1_ubuntu, job_2_windows, job_3_macos]
+    steps:
+      - name: Print Custom Message
+        run: date
